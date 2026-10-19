@@ -33,6 +33,7 @@ Le cœur du flux se trouve dans `main.py`.
 
 ---
 
+<<<<<<< HEAD
 ## Architecture du projet
 
 ```text
@@ -91,6 +92,8 @@ Il permet de :
 - les enregistrer dans `chroma_db/<nom_du_programme>`.
 
 ---
+=======
+>>>>>>> 74b3cf542a73703b635629e5869c0f2fd2874401
 
 ## Stack technique
 
@@ -104,6 +107,7 @@ Il permet de :
 - dotenv
 
 ---
+<<<<<<< HEAD
 
 ## Objectif fonctionnel détaillé
 
@@ -265,3 +269,5 @@ Ce projet combine :
 - et la synthèse de réponses à partir de documents politiques.
 
 Il fournit une base solide pour construire un assistant capable d’interroger des programmes à partir de leurs contenus officiels.
+=======
+>>>>>>> 74b3cf542a73703b635629e5869c0f2fd2874401
