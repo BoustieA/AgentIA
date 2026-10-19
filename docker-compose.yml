@@ -1,0 +1,47 @@
+services:
+  # Streamlit Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfiles/UI.dockerfile
+    container_name: UI
+    env_file:
+      - .env
+    command: streamlit run app.py --server.port=${UI_PORT} --server.address=${UI_ADRESS}
+    ports:
+      - "${UI_PORT}:${UI_PORT}"
+    depends_on:
+      - api
+
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfiles/API.dockerfile
+    container_name: API
+    command: uvicorn main:app --reload --port=${API_PORT} --host=${API_HOST}
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    depends_on:
+      database_building:
+        condition: service_completed_successfully
+
+  # database_building
+  database_building:
+    build:
+      context: .
+      dockerfile: Dockerfiles/LOAD_DATA.dockerfile
+    working_dir: /app
+    command: python -u /app/main.py
+    container_name: LoadData
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    environment:
+      - DATABASE_PATH=/app/chroma_db
+    restart: "no" # Le script s'exécute et s'arrête
+
+
+version: '3.8'
+

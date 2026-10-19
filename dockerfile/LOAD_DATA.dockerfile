@@ -1,0 +1,28 @@
+# Use official lightweight Python image
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for efficient caching
+COPY Requirements/requirements_LOAD_DATA.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements_LOAD_DATA.txt
+
+# Copy the app scripts
+COPY LoadData/ /app/
+
+# Copy the data folder to initialize the database
+COPY politique/ /app
+
+WORKDIR /app
+
+# Run the loading pipeline main entrypoint
+CMD ["python", "-u", "/app/setup.py"]

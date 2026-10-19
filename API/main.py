@@ -1,10 +1,7 @@
 from fastapi import FastAPI, HTTPException
 
 from langchain.agents import create_agent
-from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import Chroma
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.tools.retriever import create_retriever_tool
 from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -15,7 +12,7 @@ import os
 load_dotenv()
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-PERSIST_DIRECTORY = "./chroma_db"
+PERSIST_DIRECTORY = os.getenv("DATABASE_PATH","./chroma_db")
 
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
@@ -60,7 +57,7 @@ agent = create_agent(
     tools=tools,
     system_prompt="You are a helpful assistant. " \
     "Tu dois baser ta réponse sur les réponses des outils qui te sont fournis." \
-    "Pour chaque question, utilise tout les outils et concatènela réponse de chaque outil en précisant le nom du politique correspondant.",
+    "Pour chaque question, utilise tout les outils et concatène la réponse de chaque outil en précisant le nom du politique correspondant.",
 )
 
 

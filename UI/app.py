@@ -4,8 +4,8 @@ import requests
 # Titre de l'application
 st.title("💬 Chatbot FastAPI")
 
-# URL de ton API FastAPI
-FASTAPI_URL = "http://localhost:8000/ask"
+FASTAPI_URL = os.getenv("API_HOST","0.0.0.0") + ":" \
+            + os.getenv("API_PORT","8000") + "/ask"
 
 # Initialisation de l'historique de discussion
 if "messages" not in st.session_state:
