@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y \
 COPY Requirements/requirements_API.txt .
 
 # Install Python dependencies
+RUN pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir -r requirements_API.txt
 
 # Copy the rest of the app
-COPY DataCollection/ORM_models.py .
 COPY API/main.py .

@@ -1,10 +1,10 @@
 import streamlit as st
 import requests
-
+import os
 # Titre de l'application
 st.title("💬 Chatbot FastAPI")
 
-FASTAPI_URL = os.getenv("API_HOST","0.0.0.0") + ":" \
+FASTAPI_URL = "http://api" + ":" \
             + os.getenv("API_PORT","8000") + "/ask"
 
 # Initialisation de l'historique de discussion

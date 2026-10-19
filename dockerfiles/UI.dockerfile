@@ -18,9 +18,3 @@ RUN pip install --no-cache-dir -r requirements_UI.txt
 
 # Copy the rest of the app
 COPY UI/ .
-
-# Expose Streamlit default port
-#EXPOSE 8501
-
-# Run the application
-#CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

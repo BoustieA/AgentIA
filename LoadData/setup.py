@@ -7,18 +7,18 @@ import os
 
 load_dotenv()
 
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
 ROOT_DIR = "politique"        # Dossier principal contenant les sous-dossiers
 CHROMA_ROOT = "./chroma_db"   # Dossier racine pour stocker les bases vectorielles
-
-# Initialisation des embeddings partagés (locaux et gratuits)
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-
-vectorstores_par_politique = {}
-
 # Vérification si le dossier principal existe
 if os.path.exists(ROOT_DIR):
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+    # Initialisation des embeddings partagés (locaux et gratuits)
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+
+    vectorstores_par_politique = {}
     # Parcourt dynamiquement tous les sous-dossiers de "politique" (ex: politique1, politique2...)
     for nom_politique in os.listdir(ROOT_DIR):
         dossier_politique = os.path.join(ROOT_DIR, nom_politique)

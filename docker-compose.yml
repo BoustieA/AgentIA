@@ -24,6 +24,8 @@ services:
       - "${API_PORT}:${API_PORT}"
     volumes:
       - ./chroma_db:/app/chroma_db
+    env_file:
+      - .env
     depends_on:
       database_building:
         condition: service_completed_successfully
@@ -34,7 +36,7 @@ services:
       context: .
       dockerfile: Dockerfiles/LOAD_DATA.dockerfile
     working_dir: /app
-    command: python -u /app/main.py
+    command: python -u /app/setup.py
     container_name: LoadData
     volumes:
       - ./chroma_db:/app/chroma_db

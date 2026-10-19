@@ -14,15 +14,12 @@ RUN apt-get update && apt-get install -y \
 COPY Requirements/requirements_LOAD_DATA.txt .
 
 # Install Python dependencies
+RUN pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir -r requirements_LOAD_DATA.txt
 
+# Copy the data folder to initialize the database
+COPY politique/ /app/politique/
 # Copy the app scripts
 COPY LoadData/ /app/
 
-# Copy the data folder to initialize the database
-COPY politique/ /app
-
 WORKDIR /app
-
-# Run the loading pipeline main entrypoint
-CMD ["python", "-u", "/app/setup.py"]
